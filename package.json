@@ -2,21 +2,22 @@
   "name": "test-sg",
   "version": "0.0.0",
   "main": "index.js",
+  "browser": "browser.js",
   "types": "index.d.ts",
   "napi": {
-    "name": "test-sg",
-    "triples": {
-      "additional": [
-        "aarch64-apple-darwin",
-        "i686-pc-windows-msvc",
-        "universal-apple-darwin"
-      ]
-    }
+    "binaryName": "sg",
+    "targets": [
+      "wasm32-wasip1-threads"
+    ]
   },
   "license": "MIT",
   "devDependencies": {
-    "@napi-rs/cli": "^2.18.3",
-    "ava": "^6.0.1"
+    "@emnapi/runtime": "^1.1.1",
+    "@napi-rs/cli": "^3.0.0-alpha.55",
+    "@napi-rs/wasm-runtime": "^0.2.4",
+    "ava": "^6.0.1",
+    "cross-env": "^7.0.3",
+    "emnapi": "^1.1.1"
   },
   "ava": {
     "timeout": "3m"
@@ -26,16 +27,12 @@
   },
   "scripts": {
     "artifacts": "napi artifacts",
-    "build": "napi build --target wasm-wasi",
-    "build:debug": "napi build --platform",
+    "build": "yarn build:debug --release",
+    "build:debug": "cross-env CFLAGS=\"-include$(pwd)/dup.h\"  napi build --platform --target wasm32-wasip1-threads",
     "prepublishOnly": "napi prepublish -t npm",
     "test": "ava",
     "universal": "napi universal",
     "version": "napi version"
   },
-  "packageManager": "yarn@4.2.2",
-  "dependencies": {
-    "@emnapi/runtime": "^1.1.1",
-    "emnapi": "^1.1.1"
-  }
+  "packageManager": "yarn@4.2.2"
 }

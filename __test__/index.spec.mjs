@@ -1,7 +1,7 @@
 import test from 'ava'
 
-import { sum } from '../index.js'
+import { parse } from '../index.js'
 
-test('sum from native', (t) => {
-  t.is(sum(1, 2), 3)
+test('should be able to parse Rust', (t) => {
+  t.snapshot(parse(`fn main() { println!("Hello, World!"); }`))
 })
