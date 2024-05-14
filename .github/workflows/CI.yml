@@ -91,7 +91,7 @@ jobs:
           if-no-files-found: error
 
   test-wasi-on-nodejs:
-    name: Test bindings on Linux-x64-gnu - node@${{ matrix.node }}
+    name: Test wasi bindings - node@${{ matrix.node }}
     needs:
       - build
     strategy:
@@ -113,7 +113,7 @@ jobs:
       - name: Download artifacts
         uses: actions/download-artifact@v4
         with:
-          name: bindings-wasm32-wasi-threads
+          name: bindings-wasm32-wasip1-threads
           path: .
       - name: List packages
         run: ls -R .
